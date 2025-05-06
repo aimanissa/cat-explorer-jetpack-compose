@@ -13,19 +13,20 @@ fun CatImageDTO.toCatImage(): CatImage {
         width = width,
         height = height,
         url = url,
-        breeds = breeds?.map(BreedDTO::toBreed)
+        breed = breeds.getFirstOrNull()
     )
 }
+
+private fun List<BreedDTO>?.getFirstOrNull(): Breed? = this?.getOrNull(FIRST_INDEX)?.toBreed()
 
 private fun BreedDTO.toBreed(): Breed {
     return Breed(
         id = id,
         weight = weight.toWeight(),
         name = name,
+        description = description,
         temperament = temperament,
         origin = origin,
-        countryCodes = countryCodes,
-        countryCode = countryCode,
         lifeSpan = lifeSpan,
         wikipediaUrl = wikipediaUrl
     )
@@ -37,3 +38,5 @@ private fun WeightDTO.toWeight(): Weight {
         metric = metric
     )
 }
+
+private const val FIRST_INDEX = 0

@@ -1,4 +1,4 @@
-package com.aimanissa.catexplorer.data.network.utils
+package com.aimanissa.catexplorer.data.network
 
 import okhttp3.Interceptor
 import okhttp3.Response

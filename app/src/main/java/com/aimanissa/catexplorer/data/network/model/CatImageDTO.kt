@@ -17,10 +17,9 @@ data class BreedDTO(
     @SerialName("weight") val weight: WeightDTO,
     @SerialName("id") val id: String,
     @SerialName("name") val name: String,
+    @SerialName("description") val description: String,
     @SerialName("temperament") val temperament: String,
     @SerialName("origin") val origin: String,
-    @SerialName("country_codes" )val countryCodes: String,
-    @SerialName("country_code") val countryCode: String,
     @SerialName("life_span") val lifeSpan: String,
     @SerialName("wikipedia_url") val wikipediaUrl: String
 )

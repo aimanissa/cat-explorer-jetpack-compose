@@ -28,8 +28,8 @@ class RandomImageViewModel @Inject constructor(
 
     fun handleIntent(event: RandomImageEvents) {
         when (event) {
-            is RandomImageEvents.OnImageClick -> loadImage()
-
+            is RandomImageEvents.OnImageClick,
+            is RandomImageEvents.OnRefreshClick -> loadImage()
         }
     }
 

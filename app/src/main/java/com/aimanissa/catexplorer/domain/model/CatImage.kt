@@ -5,17 +5,16 @@ class CatImage(
     val width: Int,
     val height: Int,
     val url: String,
-    val breeds: List<Breed>? = null
+    val breed: Breed? = null
 )
 
 data class Breed(
     val weight: Weight,
     val id: String,
     val name: String,
+    val description: String,
     val temperament: String,
     val origin: String,
-    val countryCodes: String,
-    val countryCode: String,
     val lifeSpan: String,
     val wikipediaUrl: String
 )

@@ -1,11 +1,12 @@
 package com.aimanissa.catexplorer.data.network
 
+import com.aimanissa.catexplorer.BuildConfig
 import com.aimanissa.catexplorer.data.network.model.CatImageDTO
-import com.aimanissa.catexplorer.data.network.utils.CatApiKeyInterceptor
 import com.skydoves.retrofit.adapters.result.ResultCallAdapterFactory
 import kotlinx.serialization.json.Json
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
 import retrofit2.create
@@ -19,7 +20,7 @@ interface CatApi {
 
     @GET("search")
     suspend fun getRandomImage(
-        @Query("breed_ids") breeds: String = "beng"
+        @Query("has_breeds") hasBreeds: Int = 1
     ): Result<List<CatImageDTO>>
 }
 
@@ -40,9 +41,12 @@ private fun retrofit(
 ): Retrofit {
     val jsonConverterFactory = json.asConverterFactory("application/json".toMediaType())
 
+    val logging = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
+
     val modifiedOkHttpClient =
         (okHttpClient?.newBuilder() ?: OkHttpClient.Builder())
             .addInterceptor(CatApiKeyInterceptor(apiKey))
+            .also { if (BuildConfig.DEBUG) it.addInterceptor(logging) }
             .build()
 
     return Retrofit.Builder()
